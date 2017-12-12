@@ -1,8 +1,8 @@
 from PIL import Image
 import numpy as np
 
-row = 2 
-col = 2
+row = 5 
+col = 5
 rgbArray = np.zeros((row,col,3), 'uint8')
 
 r = np.random.random((row,col))
