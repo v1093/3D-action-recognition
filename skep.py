@@ -8,10 +8,39 @@ import os
 height = 5
 width = 5
 
-a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+#a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+Matrix = [[0 for x in range(width)] for y in range(height)]
+Matrix = np.array(Matrix)
+Matrix[0][0] = 21
+Matrix[0][1] = 15
+Matrix[0][2] = 14
+Matrix[0][3] = 18
+Matrix[0][4] = 22
+Matrix[1][0] = 4
+Matrix[1][1] = 2
+Matrix[1][2] = 8
+Matrix[1][3] = 13
+Matrix[1][4] = 6
+Matrix[2][0] = 9
+Matrix[2][1] = 17
+Matrix[2][2] = 24
+Matrix[2][3] = 1
+Matrix[2][4] = 7
+Matrix[3][0] = 16
+Matrix[3][1] = 3
+Matrix[3][2] = 11
+Matrix[3][3] = 25
+Matrix[3][4] = 10
+Matrix[4][0] = 5
+Matrix[4][1] = 19
+Matrix[4][2] = 23
+Matrix[4][3] = 20
+Matrix[4][4] = 12
+
 arrangements = np.zeros((25, height, width))
 
-l = np.random.choice(a, (5, 5), False)
+#l = np.random.choice(a, (5, 5), False)
+l = Matrix
 initial_arrangement = l
 
 for file in os.listdir("matFiles/"):
@@ -34,9 +63,9 @@ for file in os.listdir("matFiles/"):
                 for w in range(0, height):
                     j = l[h][w] - 1
                     # print(j)
-                    rgbArray[h, w, 0] = mat['bodyinfo'][0][f]['bodies'][0][0]['joints'][0][j][0][0][0] * 256
-                    rgbArray[h, w, 1] = mat['bodyinfo'][0][f]['bodies'][0][0]['joints'][0][j][1][0][0] * 256
-                    rgbArray[h, w, 2] = mat['bodyinfo'][0][f]['bodies'][0][0]['joints'][0][j][2][0][0] * 256
+                    rgbArray[h, w, 0] = ((mat['bodyinfo'][0][f]['bodies'][0][0]['joints'][0][j][0][0][0] + 3.2160)/(2.0425 + 3.2160)) * 256
+                    rgbArray[h, w, 1] = ((mat['bodyinfo'][0][f]['bodies'][0][0]['joints'][0][j][1][0][0] + 0.7359)/(1.4412 + 0.7359)) * 256
+                    rgbArray[h, w, 2] = ((mat['bodyinfo'][0][f]['bodies'][0][0]['joints'][0][j][2][0][0] - 1.2587)/(4.8698 - 1.2587)) * 256
             img = Image.fromarray(rgbArray)
             # print(filename)
             img.save("intial_results" + "/" + str(f) + '.png')
